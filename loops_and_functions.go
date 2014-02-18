@@ -1,17 +1,22 @@
 package GoInda13
 
 /*
+	Author: Christopher Lillthors
+	Version 1.0
+*/
+
+/*
 #include <stdio.h>
 
-int epsilon() {
+float epsilon() {
 
-float epsilon = 1.0f;
+float machine_epsilon = 1.0f;
 
   do{
-    epsilon /= 2.0f;
-  } while ((float)(1.0 + (epsilon/2.0)) != 1.0);
+    machine_epsilon /= 2.0f;
+  } while ((float)(1.0 + (machine_epsilon/2.0)) != 1.0);
 
-return epsilon;
+return (float)machine_epsilon;
 }
 */
 import "C"
