@@ -11,8 +11,7 @@ float epsilon = 1.0f;
     epsilon /= 2.0f;
   } while ((float)(1.0 + (epsilon/2.0)) != 1.0);
 
-  printf("%f", epsilon);
-return 0;
+return epsilon;
 }
 */
 import "C"
