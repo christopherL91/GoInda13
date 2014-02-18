@@ -33,7 +33,7 @@ func Sqrt(x, guess float64) float64 {
 	var end float64
 	for {
 		end = guess - (math.Pow(guess, 2)-x)/(2*guess)
-		if guess-end < math.Abs(epsilon) {
+		if math.Abs(guess-end) < epsilon {
 			break
 		}
 		guess = end
