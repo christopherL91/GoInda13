@@ -11,8 +11,10 @@ import (
 )
 
 type serverResponse struct {
+	//the server adress
 	Name string
-	Id   string `json:"id"`
+	//the short adress from google
+	Id string `json:"id"`
 }
 
 const (
