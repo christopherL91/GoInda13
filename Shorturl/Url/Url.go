@@ -11,10 +11,8 @@ import (
 )
 
 type serverResponse struct {
-	Name    string
-	Id      string `json:"id"`
-	Kind    string `json:"kind"`
-	LongUrl string `json:"longUrl"`
+	Name string
+	Id   string `json:"id"`
 }
 
 const (
