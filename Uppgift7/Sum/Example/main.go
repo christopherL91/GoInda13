@@ -3,7 +3,12 @@ package main
 import (
 	"fmt"
 	"github.com/christopherL91/GoInda13/Uppgift7/Sum"
+	"runtime"
 )
+
+func init() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
+}
 
 func main() {
 	var sum int = 0
