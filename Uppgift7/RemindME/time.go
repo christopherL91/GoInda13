@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -17,7 +16,7 @@ func Remind(text string, paus time.Duration) {
 	for {
 		select {
 		case clock := <-ticker.C:
-			fmt.Println("Time is now " + strconv.Itoa(clock.Hour()) + ":" + strconv.Itoa(clock.Minute()) + "." + strconv.Itoa(clock.Second()) + " " + text)
+			fmt.Println("Time is now " + clock.Format("15:04:05") + " " + text)
 		default:
 			//nothing to do.
 		}
