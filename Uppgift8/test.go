@@ -11,6 +11,8 @@ import (
 	"sync"
 	"time"
 	"log"
+	"runtime"
+	"strconv"
 )
 ------------------------------------------------------------
 const (
@@ -27,13 +29,17 @@ func sayHello(ch chan string, wg *sync.WaitGroup) {
 	}
 }
 
+func init() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
+}
+
 func main() {
 	wg := new(sync.WaitGroup)
 	ch := make(chan string)
 	wg.Add(numberOfHello)
-	for i := 1; i <= numberOfHello; i++ {
+	for i := 0; i < numberOfHello; i++ {
 		go sayHello(ch, wg)
-		ch <- "Hello world "
+		ch <- "Hello world " strconv.Itoa(i)
 	}
 	wg.Wait()
 }
