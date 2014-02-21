@@ -1,3 +1,9 @@
+/*
+Author: Christopher Lillthors
+Different approaches for printing out "Hello World" with several goroutines
+
+*/
+
 package main
 
 import (
@@ -30,10 +36,6 @@ func main() {
 		ch <- "Hello world "
 	}
 	wg.Wait()
-}
-
-func r() {
-	go r()
 }
 -----------------------------------------------------------
 
