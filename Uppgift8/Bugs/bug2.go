@@ -1,31 +1,35 @@
-package main
+/*
+*	This program is slitely changed. It will return an []int{} containing the numbers.
+*	This is for testing purposes.
+ */
+}
+
+package Bugs
 
 import (
-	"fmt"
 	"runtime"
+	"sort"
 )
 
 const (
+	//how many numbers are put into one slice.
 	count = 11
 )
 
-func init() {
+func WriteNumbers() []int {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-}
-
-// This program should go to 11, but sometimes it only prints 1 to 10.
-func main() {
-	//create channel
+	//create channels
 	ch := make(chan int)
-	done := make(chan bool)
+	done := make(chan []int)
 
 	//closure
-	printNumbers := func(ch1 chan int, done chan bool) {
+	printNumbers := func(ch1 chan int, done chan []int) {
+		buffer := []int{}
 		//reads until close(ch1)
 		for n := range ch1 {
-			fmt.Println(n)
+			buffer = append(buffer, n)
 		}
-		done <- true
+		done <- buffer
 	}
 	//fire of goroutine
 	go printNumbers(ch, done)
@@ -37,7 +41,11 @@ func main() {
 	close(ch)
 
 	//blocking until goroutine is finished.
-	if <-done == true {
-		close(done)
-	}
+	slice := <-done
+	return slice
+}
+
+//for testing
+func Reverse(input []int) {
+	sort.Sort(sort.Reverse(sort.IntSlice(input)))
 }
