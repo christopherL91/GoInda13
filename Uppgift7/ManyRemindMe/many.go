@@ -13,6 +13,7 @@ func Alarm() {
 	go remindeMe("Time to eat", 3*time.Hour)
 }
 
+//not exported.
 func remindeMe(text string, duration time.Duration) {
 	if duration <= 0 {
 		log.Fatal("duration >= 0")

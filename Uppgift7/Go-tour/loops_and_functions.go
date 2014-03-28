@@ -31,12 +31,10 @@ var (
 )
 
 func Sqrt(x, guess float64) float64 {
-	counter := 0
+	fmt.Println(epsilon)
 	var end float64
 	for {
 		end = guess - (math.Pow(guess, 2)-x)/(2*guess)
-		counter += 1
-		fmt.Println(...)
 		if math.Abs(guess-end) < epsilon {
 			break
 		}
