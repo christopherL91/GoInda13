@@ -26,7 +26,7 @@ func main() {
 	for i := 0; i < producers; i++ {
 		go Produce("p"+strconv.Itoa(i), strings/producers, ch, wgp)
 	}
-	for i := 0; i < consumers; i++ {
+	for i := 0; uint64(i) < consumers; i++ {
 		go Consume("c"+strconv.Itoa(i), ch)
 	}
 	wgp.Wait() // Wait for all producers to finish.
