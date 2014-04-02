@@ -4,5 +4,5 @@
 
 * go get -t github.com/smartystreets/goconvey
 
-run this command: `goconvey`
+run this command: `goconvey` then open your favorite browser and go to `localhost:8080`
 
