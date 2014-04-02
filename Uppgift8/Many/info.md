@@ -1,6 +1,6 @@
 #Många sändare och många mottagare
 
-##Programmet many2many.go innehåller 4 producenter som tillsammans skickar 32 strängar över en kanal; i andra änden av kanalen finns 2 konsumenter som tar emot de 32 strängarna. Förklara vad som händer och varför det händer om man gör följande ändringar i programmet. Prova att först tänka ut vad som händer och testa sedan din hypotes genom att ändra och köra programmet.##
+Programmet many2many.go innehåller 4 producenter som tillsammans skickar 32 strängar över en kanal; i andra änden av kanalen finns 2 konsumenter som tar emot de 32 strängarna. Förklara vad som händer och varför det händer om man gör följande ändringar i programmet. Prova att först tänka ut vad som händer och testa sedan din hypotes genom att ändra och köra programmet.
 
 * Vad händer om man byter plats på satserna wgp.Wait() och close(ch) i slutet av main-funktionen?
 
