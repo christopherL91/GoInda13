@@ -1,8 +1,8 @@
+
 /*
 *	This program is slitely changed. It will return an []int{} containing the numbers.
 *	This is for testing purposes.
  */
-}
 
 package Bugs
 
