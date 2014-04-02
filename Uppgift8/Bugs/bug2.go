@@ -1,7 +1,6 @@
 /*
-*	This program is slitely changed. It will return an []int{} containing the numbers.
-*	This is for testing purposes.
- */
+	This program is modified for testing purposes.
+*/
 
 package Bugs
 
@@ -11,12 +10,16 @@ import (
 )
 
 const (
-	//how many numbers are put into one slice.
+	//the number of numbers in one slice.
 	count = 11
 )
 
-func WriteNumbers() []int {
+func init() {
+	//maximum power!
 	runtime.GOMAXPROCS(runtime.NumCPU())
+}
+
+func WriteNumbers() []int {
 	//create channels
 	ch := make(chan int)
 	done := make(chan []int)
@@ -30,9 +33,10 @@ func WriteNumbers() []int {
 		}
 		done <- buffer
 	}
-	//fire of goroutine
+	//fire dah lazer!
 	go printNumbers(ch, done)
 
+	//send all the numbers!11!!!!!!1111!!!!!!
 	for i := 1; i <= count; i++ {
 		ch <- i
 	}
@@ -40,8 +44,7 @@ func WriteNumbers() []int {
 	close(ch)
 
 	//blocking until goroutine is finished.
-	slice := <-done
-	return slice
+	return <-done
 }
 
 //for testing
