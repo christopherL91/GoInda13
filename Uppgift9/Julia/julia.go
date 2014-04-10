@@ -4,6 +4,7 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/png"
@@ -12,6 +13,8 @@ import (
 	"os"
 	"runtime"
 	"strconv"
+	"sync"
+	"time"
 )
 
 func init() {
@@ -32,12 +35,19 @@ var Funcs []ComplexFunc = []ComplexFunc{
 }
 
 func main() {
+	defer timeTrack(time.Now(), "Julia program")
 	for n, fn := range Funcs {
 		err := CreatePng("picture-"+strconv.Itoa(n)+".png", fn, 1024)
 		if err != nil {
 			log.Fatal(err)
 		}
 	}
+}
+
+//timeing the program
+func timeTrack(start time.Time, name string) {
+	elapsed := time.Since(start)
+	fmt.Printf("%s took %s", name, elapsed)
 }
 
 // CreatePng creates a PNG picture file with a Julia image of size n x n.
@@ -51,25 +61,29 @@ func CreatePng(filename string, f ComplexFunc, n int) (err error) {
 	return
 }
 
-func doCalc(f ComplexFunc, i, j int, s float64, img *image.RGBA) {
+func doCalc(f ComplexFunc, i, j int, s float64, img *image.RGBA, wg *sync.WaitGroup) {
 	n := Iterate(f, complex(float64(i)/s, float64(j)/s), 256)
 	r := uint8(0)
 	g := uint8(0)
 	b := uint8(n % 32 * 8)
 	img.Set(i, j, color.RGBA{r, g, b, 255})
+	wg.Done()
 }
 
 // Julia returns an image of size n x n of the Julia set for f.
 func Julia(f ComplexFunc, n int) image.Image {
+	wg := new(sync.WaitGroup)
+	wg.Add(1024 * 1024)
 	bounds := image.Rect(-n/2, -n/2, n/2, n/2)
 	img := image.NewRGBA(bounds)
 	s := float64(n / 4)
 	for i := bounds.Min.X; i < bounds.Max.X; i++ {
 		//bad coding style! The compiler will allocate more and more memory for each iteration.
 		for j := bounds.Min.Y; j < bounds.Max.Y; j++ {
-			go doCalc(f, i, j, s, img)
+			go doCalc(f, i, j, s, img, wg)
 		}
 	}
+	wg.Wait()
 	return img
 }
 
