@@ -1,0 +1,15 @@
+Vad händer om man tar bort go-kommandot från Seek-anropet i main-funktionen?
+Enkelt.
+Seek körs i samma goroutine som main, och blir blocking.
+Ingen concurrency alltså.
+
+Vad händer om man byter deklarationen wg := new(sync.WaitGroup) mot var wg sync.WaitGroup och parametern wg *sync.WaitGroup mot wg sync.WaitGroup?
+new(sync.WaitGroup) returnerar en pekare till det nya objektet.
+wg sync.WaitGroup ger ett object, och wg *sync.WaitGroup är en pekare precis som new(sync.WaitGroup)
+Byter man mellan pekare och ett faktiskt objekt kommer kompilatorn klaga och den kommer såleles inte kompilera.
+
+Vad händer om man tar bort bufferten på kanalen match?
+Enbart ett objekt får finnas i kanalen innan den blir blocking. Man får deadlock i programmet.
+
+Vad händer om man tar bort default-fallet från case-satsen i main-funktionen?
+Ingenting. Har man ingen default kommer datorn själv "sova" om den inte har något att göra.
