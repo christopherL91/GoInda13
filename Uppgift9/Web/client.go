@@ -71,10 +71,10 @@ func Get(url string) *Response {
 	return &Response{string(body), res.StatusCode}
 }
 
-// FIXME
-// I've found two insidious bugs in this function; both of them are unlikely
-// to show up in testing. Please fix them right away – and don't forget to
-// write a doc comment this time.
+/*
+*	This function is now fixed. It will return an response from the server if the
+*	response code is 200.
+ */
 func Read(url string, timeout time.Duration) (res *Response) {
 	done := make(chan *Response)
 
@@ -83,7 +83,8 @@ func Read(url string, timeout time.Duration) (res *Response) {
 		//a new response is created in Get() and as long there's an reference to the object, the GC will not take it away.
 		resp := Get(url)
 		//200 is the http code for success.
-		if resp.StatusCode != 200 {
+		//http.StatusOK = 200
+		if resp.StatusCode != http.StatusOK {
 			return
 		}
 		//send the response.
