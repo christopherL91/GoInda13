@@ -121,5 +121,7 @@ func main() {
 	})
 	if found {
 		fmt.Println(stack)
+	} else {
+		onError("Could not find a way")
 	}
 }
