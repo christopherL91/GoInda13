@@ -23,12 +23,17 @@ func init() {
 	flag.Parse()
 }
 
+func usage() {
+	fmt.Fprintf(os.Stderr, "Usage : %s [-filename=true/false] [profile=true/false] [stack=true/false] from to", os.Args[0])
+	os.Exit(1)
+}
+
 func main() {
 	//contains all the arguments from command line
 	args := flag.Args()
 	//check number of arguments
 	if len(args) != 2 {
-		GraphPath.OnError("Check number of arguments")
+		usage()
 	}
 
 	if profile {
@@ -36,6 +41,7 @@ func main() {
 		if err != nil {
 			GraphPath.OnError(err.Error())
 		}
+		//CPU-profile
 		pprof.StartCPUProfile(file)
 		defer pprof.StopCPUProfile()
 	}
@@ -53,6 +59,7 @@ func main() {
 		GraphPath.OnError("Could not convert values from command line")
 	}
 
+	//calculate a path and total cost for the path between to and from.
 	path, stack, totalCost, err := GraphPath.FindPath(to, from, fileName, printStack)
 	if err != nil {
 		GraphPath.OnError(err.Error())
