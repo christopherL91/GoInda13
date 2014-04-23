@@ -1,0 +1,8 @@
+#!/bin/bash
+
+printf "Installing...\n"
+go install
+pandoc -s -t man man/path.md -o ./man/Path.1
+mv ./man/Path.1 /usr/local/share/man/man1
+gzip /usr/local/share/man/man1/Path.1
+printf "Done!\n"
