@@ -16,7 +16,7 @@ func ExampleDFS() {
 	for v, visited := range state {
 		if !visited {
 			fmt.Print("{")
-			graph.DFS(g, v, state, func(w int) { fmt.Print(w) })
+			graph.DFS(g, v, state, func(from, w int) { fmt.Print(w) })
 			fmt.Print("}")
 		}
 	}

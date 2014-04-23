@@ -443,7 +443,7 @@ func TestDFS(t *testing.T) {
 
 		dfs := ""
 		state := make([]bool, g.NumVertices())
-		action := func(v int) { dfs += strconv.Itoa(v) }
+		action := func(from, v int) { dfs += strconv.Itoa(v) }
 		for v, visited := range state {
 			if !visited {
 				DFS(g, v, state, action)
@@ -488,7 +488,7 @@ func TestBFS(t *testing.T) {
 
 		bfs := ""
 		state := make([]bool, g.NumVertices())
-		action := func(v int) { bfs += strconv.Itoa(v) }
+		action := func(from, v int) { bfs += strconv.Itoa(v) }
 		BFS(g, 0, state, action)
 		if mess, diff := diffPerm(bfs[0:1], "0"); diff {
 			t.Errorf("%s: bfs[0:1] %s", impl, mess)
